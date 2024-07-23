@@ -1,69 +1,33 @@
 $(function() {
+    'use strict';
 
-	'use strict';
+    // Form
+    var contactForm = function() {
+        if ($('#contactForm').length > 0 ) {
+            $("#contactForm").validate({
+                rules: {
+                    name: "required",
+                    gender: "required",
+                    message: {
+                        required: true,
+                        minlength: 5
+                    }
+                },
+                messages: {
+                    name: "Por favor insira seu nome.",
+                    gender: "Por favor insira seu gênero.",
+                    message: "Por favor digite sua mensagem."
+                },
+                submitHandler: function(form) {
+                    var name = $('#name').val();
+                    var gender = $('#gender').val();
+                    var message = $('#message').val();
+                    var whatsappURL = `https://wa.me/+5581998997874?text=Nome:%20${encodeURIComponent(name)}%0AGênero:%20${encodeURIComponent(gender)}%0AMensagem:%20${encodeURIComponent(message)}`;
 
-	// Form
-
-	var contactForm = function() {
-
-		if ($('#contactForm').length > 0 ) {
-			$( "#contactForm" ).validate( {
-				rules: {
-					name: "required",
-					email: {
-						required: true,
-						email: true
-					},
-					message: {
-						required: true,
-						minlength: 5
-					}
-				},
-				messages: {
-					name: "Por favor insira seu nome.",
-					email: "Por favor, digite um email valido.",
-					message: "Por favor digite sua menssagem."
-				},
-				/* submit via ajax */
-				submitHandler: function(form) {		
-					var $submit = $('.submitting'),
-						waitText = 'Submitting...';
-
-					$.ajax({   	
-				      type: "POST",
-				      url: "/php/send-email.php",
-				      data: $(form).serialize(),
-
-				      beforeSend: function() { 
-				      	$submit.css('display', 'block').text(waitText);
-				      },
-				      success: function(msg) {
-		               if (msg == 'OK') {
-		               	$('#form-message-warning').hide();
-				            setTimeout(function(){
-		               		$('#contactForm').fadeOut();
-		               	}, 1000);
-				            setTimeout(function(){
-				               $('#form-message-success').fadeIn();   
-		               	}, 1400);
-			               
-			            } else {
-			               $('#form-message-warning').html(msg);
-				            $('#form-message-warning').fadeIn();
-				            $submit.css('display', 'none');
-			            }
-				      },
-				      error: function() {
-				      	$('#form-message-warning').html("Something went wrong. Please try again.");
-				         $('#form-message-warning').fadeIn();
-				         $submit.css('display', 'none');
-				      }
-			      });    		
-		  		}
-				
-			} );
-		}
-	};
-	contactForm();
-
+                    window.location.href = whatsappURL;
+                }
+            });
+        }
+    };
+    contactForm();
 });
