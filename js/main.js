@@ -22,7 +22,7 @@ $(function() {
                     var name = $('#name').val();
                     var gender = $('#gender').val();
                     var message = $('#message').val();
-                    var whatsappURL = `https://wa.me/+5581998997874?text=Nome:%20${encodeURIComponent(name)}%0AGênero:%20${encodeURIComponent(gender)}%0AMensagem:%20${encodeURIComponent(message)}`;
+                    var whatsappURL = `https://wa.me/+5581998997874?text=Nome:%20${encodeURIComponent(name)}%0AAtendimento:%20${encodeURIComponent(gender)}%0AMensagem:%20${encodeURIComponent(message)}`;
 
                     window.location.href = whatsappURL;
                 }
